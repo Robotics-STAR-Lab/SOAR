@@ -453,11 +453,6 @@ int main(int argc, char** argv)
   nh.param("drone_id", drone_id_, -1);
   nh.param("drone_num", drone_num_, -1);
 
-  Eigen::Vector3d init_pos;
-  nh.param("traj_server/init_x", init_pos[0], 0.0);
-  nh.param("traj_server/init_y", init_pos[1], 0.0);
-  nh.param("traj_server/init_z", init_pos[2], 0.0);
-
   ROS_WARN("[Traj server]: init...");
   ros::Duration(1.0).sleep();
 

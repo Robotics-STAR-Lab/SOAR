@@ -160,36 +160,47 @@ You can modify the `pisa.launch` or `sydney.launch` file as follows:
       <arg name="drone_id" value="0" />
 
       ... ...
-
-      <!-- Adjust to the appropriate initial position. -->
-      <arg name="init_x" value="" />
-      <arg name="init_y" value="" />
-      <arg name="init_z" value="" />
-      <arg name="init_yaw" value="" />
       
-      ... ...
-
-      <arg name="resolution" value="$(arg resolution)" />
     </include>
+
+    <group if="$(arg use_sim)">
+      <include file="$(find heterogeneous_manager)/launch/single_lidar_uav.xml">
+        <arg name="drone_id" value="0" />
+        
+        ... ...
+        
+        <!-- Adjust to the appropriate initial position. -->
+        <arg name="init_x_" value="" />
+        <arg name="init_y_" value="" />
+        <arg name="init_z_" value="" />
+        <arg name="init_yaw" value="" />
+
+        ... ...
+
+      </include>
+    </group>
   </group>
 
   <!-- Photographer1 -->
   <group ns="quad_1">
     <include file="$(find heterogeneous_manager)/launch/single_camera_uav_exploration.xml">
       <arg name="drone_id" value="1" />
-
-      ... ...
-
-      <!-- Adjust to the appropriate initial position. -->
-      <arg name="init_x" value="" />
-      <arg name="init_y" value="" />
-      <arg name="init_z" value="" />
-      <arg name="init_yaw" value="" />
       
       ... ...
 
-      <arg name="resolution" value="$(arg resolution)" />
     </include>
+
+    <group if="$(arg use_sim)">
+      <include file="$(find heterogeneous_manager)/launch/single_camera_uav.xml">
+        <arg name="drone_id" value="1"/>
+        <!-- Adjust to the appropriate initial position. -->
+        <arg name="init_x_" value=""/>
+        <arg name="init_y_" value=""/>
+        <arg name="init_z_" value=""/>
+        <arg name="init_yaw" value=""/>
+        <arg name="odom_topic" value="$(arg odom_topic)"/>
+      </include>
+    </group>
   </group>
 
   <!-- Other photographers' groups -->
@@ -198,20 +209,25 @@ You can modify the `pisa.launch` or `sydney.launch` file as follows:
   <!-- PhotographerX (X = _NUM_-1) -->
   <group ns="quad_X">
     <include file="$(find heterogeneous_manager)/launch/single_camera_uav_exploration.xml">
+      <!-- Adjust to the appropriate drone_id = _NUM_-1 -->
       <arg name="drone_id" value="X" />
       
       ... ...
 
-      <!-- Adjust to the appropriate initial position. -->
-      <arg name="init_x" value="" />
-      <arg name="init_y" value="" />
-      <arg name="init_z" value="" />
-      <arg name="init_yaw" value="" />
-
-      ... ...
-
-      <arg name="resolution" value="$(arg resolution)" />
     </include>
+
+    <group if="$(arg use_sim)">
+      <include file="$(find heterogeneous_manager)/launch/single_camera_uav.xml">
+        <!-- Adjust to the appropriate drone_id = _NUM_-1 -->
+        <arg name="drone_id" value="X"/>
+        <!-- Adjust to the appropriate initial position. -->
+        <arg name="init_x_" value=""/>
+        <arg name="init_y_" value=""/>
+        <arg name="init_z_" value=""/>
+        <arg name="init_yaw" value=""/>
+        <arg name="odom_topic" value="$(arg odom_topic)"/>
+      </include>
+    </group>
   </group>
 ```
 

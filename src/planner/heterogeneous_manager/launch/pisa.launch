@@ -3,10 +3,14 @@
   <arg name="map_size_y" default="80.0" />
   <arg name="map_size_z" default="30.0" />
 
+  <!-- Use simulation or not -->
+  <arg name="use_sim" value="true" />
+
   <!-- GPU/CPU version of Marsim -->
   <arg name="use_gpu" value="false" />
 
   <arg name="map_name" value="pisa" />
+  <arg name="map_filename" default="$(find map_generator)/resource/$(arg map_name).pcd"/>
 
   <!-- The total number of explorer and photographers -->
   <arg name="drone_num" value="4" />
@@ -15,25 +19,30 @@
   <arg name="lidar_pitch" value="$(eval 20 * 3.1415926 / 180.0)" />
   <arg name="surface_min_update_time" value="2.0" />
   <arg name="frozen_surface_min_num" value="20" />
+  <arg name="odom_topic" value="lidar_slam/odom" />
+
+  <!-- map simulator -->
+  <group if="$(arg use_sim)">
+    <node pkg="map_generator" name="map_pub" type="map_pub" output="screen" args="$(arg map_filename)">
+      <param name="add_boundary" value="1" />
+      <param name="is_bridge" value="0" />
+      <param name="downsample_res" value="$(arg resolution)" />
+      <param name="map_offset_x" value="0.0" />
+      <param name="map_offset_y" value="0.0" />
+      <param name="map_offset_z" value="0.0" />
+    </node>
+  </group>
 
   <!-- Explorer -->
   <group ns="quad_0">
     <include file="$(find heterogeneous_manager)/launch/single_lidar_uav_exploration.xml">
       <arg name="drone_id" value="0" />
       <arg name="drone_num" value="$(arg drone_num)" />
-      <arg name="use_gpu_" value="$(arg use_gpu)" />
-      <arg name="lidar_pitch" value="$(arg lidar_pitch)" />
 
       <arg name="map_name" value="$(arg map_name)" />
       <arg name="map_size_x" value="$(arg map_size_x)" />
       <arg name="map_size_y" value="$(arg map_size_y)" />
       <arg name="map_size_z" value="$(arg map_size_z)" />
-
-      <arg name="map_add_boundary" value="1" />
-      <arg name="init_x" value="-17.0" />
-      <arg name="init_y" value="8.0" />
-      <arg name="init_z" value="3.0" />
-      <arg name="init_yaw" value="0.0" />
 
       <arg name="max_vel" value="2.5" />
       <arg name="max_acc" value="2.5" />
@@ -41,9 +50,28 @@
       <arg name="surface_min_update_time" value="$(arg surface_min_update_time)" />
       <arg name="frozen_surface_min_num" value="$(arg frozen_surface_min_num)" />
 
-      <arg name="downsample_resolution" value="$(arg resolution)" />
       <arg name="resolution" value="$(arg resolution)" />
+      <arg name="odom_topic" value="$(arg odom_topic)"/>
     </include>
+
+    <group if="$(arg use_sim)">
+      <!-- lidar drone simulation config -->
+      <include file="$(find heterogeneous_manager)/launch/single_lidar_uav.xml">
+        <arg name="drone_id" value="0" />
+        <arg name="uav_num_" value="$(arg drone_num)" />
+        <arg name="lidar_type" value="mid360" />
+        <arg name="init_x_" value="-17.0" />
+        <arg name="init_y_" value="8.0" />
+        <arg name="init_z_" value="3.0" />
+        <arg name="init_yaw" value="0.0" />
+        <arg name="downsample_resolution_" value="$(arg resolution)" />
+        <arg name="odom_topic" value="$(arg odom_topic)" />
+        <arg name="use_gpu" value="$(arg use_gpu)" />
+        <arg name="use_uav_extra_model_" value="1" />
+        <arg name="lidar_pitch" value="$(arg lidar_pitch)" />
+      </include>
+    </group>
+
   </group>
 
   <!-- Photographer1 -->
@@ -57,17 +85,25 @@
       <arg name="map_size_y" value="$(arg map_size_y)" />
       <arg name="map_size_z" value="$(arg map_size_z)" />
 
-      <arg name="init_x" value="-13.0" />
-      <arg name="init_y" value="3.0" />
-      <arg name="init_z" value="2.6" />
-      <arg name="init_yaw" value="0.0" />
-
       <arg name="max_vel" value="1.0" />
       <arg name="max_acc" value="1.0" />
 
-      <arg name="downsample_resolution" value="$(arg resolution)" />
       <arg name="resolution" value="$(arg resolution)" />
+      <arg name="odom_topic" value="$(arg odom_topic)"/>
     </include>
+
+    <group if="$(arg use_sim)">
+      <!-- camera drone simulation config -->
+      <include file="$(find heterogeneous_manager)/launch/single_camera_uav.xml">
+        <arg name="drone_id" value="1"/>
+        <arg name="init_x_" value="-13.0"/>
+        <arg name="init_y_" value="3.0"/>
+        <arg name="init_z_" value="2.6"/>
+        <arg name="init_yaw" value="0.0"/>
+        <arg name="odom_topic" value="$(arg odom_topic)"/>
+      </include>
+    </group>
+
   </group>
 
   <!-- Photographer2 -->
@@ -81,17 +117,25 @@
       <arg name="map_size_y" value="$(arg map_size_y)" />
       <arg name="map_size_z" value="$(arg map_size_z)" />
 
-      <arg name="init_x" value="-13.0" />
-      <arg name="init_y" value="8.0" />
-      <arg name="init_z" value="2.6" />
-      <arg name="init_yaw" value="0.0" />
-
       <arg name="max_vel" value="1.0" />
       <arg name="max_acc" value="1.0" />
 
-      <arg name="downsample_resolution" value="$(arg resolution)" />
       <arg name="resolution" value="$(arg resolution)" />
+      <arg name="odom_topic" value="$(arg odom_topic)"/>
     </include>
+
+    <group if="$(arg use_sim)">
+      <!-- camera drone simulation config -->
+      <include file="$(find heterogeneous_manager)/launch/single_camera_uav.xml">
+        <arg name="drone_id" value="2"/>
+        <arg name="init_x_" value="-13.0"/>
+        <arg name="init_y_" value="8.0"/>
+        <arg name="init_z_" value="2.6"/>
+        <arg name="init_yaw" value="0.0"/>
+        <arg name="odom_topic" value="$(arg odom_topic)"/>
+      </include>
+    </group>
+
   </group>
 
   <!-- Photographer3 -->
@@ -105,17 +149,24 @@
       <arg name="map_size_y" value="$(arg map_size_y)" />
       <arg name="map_size_z" value="$(arg map_size_z)" />
 
-      <arg name="init_x" value="-13.0" />
-      <arg name="init_y" value="13.0" />
-      <arg name="init_z" value="2.6" />
-      <arg name="init_yaw" value="0.0" />
-
       <arg name="max_vel" value="1.0" />
       <arg name="max_acc" value="1.0" />
 
-      <arg name="downsample_resolution" value="$(arg resolution)" />
       <arg name="resolution" value="$(arg resolution)" />
+      <arg name="odom_topic" value="$(arg odom_topic)"/>
     </include>
+
+    <group if="$(arg use_sim)">
+      <!-- camera drone simulation config -->
+      <include file="$(find heterogeneous_manager)/launch/single_camera_uav.xml">
+        <arg name="drone_id" value="3"/>
+        <arg name="init_x_" value="-13.0"/>
+        <arg name="init_y_" value="13.0"/>
+        <arg name="init_z_" value="2.6"/>
+        <arg name="init_yaw" value="0.0"/>
+        <arg name="odom_topic" value="$(arg odom_topic)"/>
+      </include>
+    </group>
   </group>
 
   <!-- <node name="record_bag" pkg="rosbag" type="record" output="screen" args="-o $(find heterogeneous_manager)/output/$(arg map_name)

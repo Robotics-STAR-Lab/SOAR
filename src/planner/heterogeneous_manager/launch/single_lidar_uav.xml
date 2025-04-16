@@ -7,11 +7,10 @@
     <arg name="init_yaw"/>
     <arg name="odom_topic"/>
     <arg name="lidar_type"/>
-    <arg name="map_name_"/>
     <arg name="downsample_resolution_"/>
     <arg name="use_gpu"/>
     <arg name="use_uav_extra_model_"/>
-    <arg name="lidar_pitch"  default="0.0" />
+    <arg name="lidar_pitch" default="0.0" />
 
     <node pkg="mars_drone_sim" name="quadrotor_dynamics" type="quadrotor_dynamics_node" output="log">
         <remap from="~odom" to="$(arg odom_topic)"/>
@@ -61,7 +60,7 @@
     <group if="$(arg use_gpu)">
 
         <group if="$(eval lidar_type == 'avia')">
-            <node pkg="local_sensing_node" type="opengl_render_node" name="pcl_render_node" output="log" args="$(arg map_name_)">
+            <node pkg="local_sensing_node" type="opengl_render_node" name="pcl_render_node" output="log">
                 <remap from="~global_map" to="/map_generator/global_cloud"/>
                 <remap from="~odometry" to="$(arg odom_topic)"/>
 
@@ -102,7 +101,7 @@
         </group>
 
         <group if="$(eval lidar_type == 'mid360')">
-            <node pkg="local_sensing_node" type="opengl_render_node" name="pcl_render_node" output="log" args="$(arg map_name_)">
+            <node pkg="local_sensing_node" type="opengl_render_node" name="pcl_render_node" output="log">
                 <remap from="~global_map" to="/map_generator/global_cloud"/>
                 <remap from="~odometry" to="$(arg odom_topic)"/>
 
@@ -144,7 +143,7 @@
         </group>
 
         <group if="$(eval lidar_type == 'os128')">
-            <node pkg="local_sensing_node" type="opengl_render_node" name="pcl_render_node" output="log" args="$(arg map_name_)">
+            <node pkg="local_sensing_node" type="opengl_render_node" name="pcl_render_node" output="log">
                 <remap from="~global_map" to="/map_generator/global_cloud"/>
                 <remap from="~odometry" to="$(arg odom_topic)"/>
 
@@ -231,7 +230,7 @@
         </group>
 
         <group if="$(eval lidar_type == 'VLP32')">
-            <node pkg="local_sensing_node" type="pcl_render_node" name="pcl_render_node" output="log" args="$(arg map_name_)">
+            <node pkg="local_sensing_node" type="pcl_render_node" name="pcl_render_node" output="log">
                 <remap from="~global_map" to="/map_generator/global_cloud"/>
                 <remap from="~odometry" to="$(arg odom_topic)"/>
 

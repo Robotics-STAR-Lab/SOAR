@@ -1,15 +1,10 @@
 <launch>
     <arg name="drone_id"/>
-    <arg name="uav_num_"/>
     <arg name="init_x_"/>
     <arg name="init_y_"/>
     <arg name="init_z_"/>
     <arg name="init_yaw"/>
     <arg name="odom_topic"/>
-    <arg name="map_name_"/>
-    <arg name="downsample_resolution_"/>
-    <arg name="use_gpu"/>
-    <arg name="use_uav_extra_model_"/>
 
     <node pkg="mars_drone_sim" name="quadrotor_dynamics" type="quadrotor_dynamics_node" output="log">
         <remap from="~odom" to="$(arg odom_topic)"/>
