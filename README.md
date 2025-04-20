@@ -27,7 +27,7 @@
             <sup>3</sup> Northwestern Polytechnical University. &nbsp;&nbsp;
             <sup>4</sup> North China Electric Power University. &nbsp;&nbsp;
             <br>
-            <sup>5</sup> The Hong Kong University of Science and Technology(Guang Zhou). &nbsp;&nbsp;
+            <sup>5</sup> The Hong Kong University of Science and Technology (Guangzhou). &nbsp;&nbsp;
             <br>
         </h45>
         <sup>*</sup>Equal Contribution &nbsp;&nbsp;
@@ -35,7 +35,7 @@
     </p>
     <a href="https://ieeexplore.ieee.org/abstract/document/10801474"><img alt="Paper" src="https://img.shields.io/badge/Paper-IEEE-blue"/></a>
     <a href="https://arxiv.org/abs/2409.02738"><img alt="Paper" src="https://img.shields.io/badge/Paper-arXiv-red"/></a>
-    <a href='https://sysu-star.github.io/SOAR'><img src='https://img.shields.io/badge/Project_Page-SOAR-green' alt='Project Page'></a>
+    <a href='https://robotics-star.com/SOAR'><img src='https://img.shields.io/badge/Project_Page-SOAR-green' alt='Project Page'></a>
     <a href="https://www.bilibili.com/video/BV1G1421Q79m"><img alt="Bilibili" src="https://img.shields.io/badge/Video-Bilibili-purple"/></a>
     <a href="https://www.bilibili.com/video/BV1wEyHYjEAq"><img alt="Bilibili" src="https://img.shields.io/badge/Talk-Bilibili-pink"/></a>
 </div>
