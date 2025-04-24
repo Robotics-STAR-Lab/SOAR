@@ -63,4 +63,5 @@ add_executable(heterogeneous_planner_node
   )
 target_link_libraries(heterogeneous_planner_node 
   ${catkin_LIBRARIES}
+  ${PCL_LIBRARIES}
   )
