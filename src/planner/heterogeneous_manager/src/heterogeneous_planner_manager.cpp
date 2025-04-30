@@ -1462,6 +1462,15 @@ void HeterogenousPlannerManager::MDMTSP_GA(const MatrixXd& dmat, const MatrixXd&
   auto t1 = ros::Time::now();
   int max_salesmen = D0.rows();
   int city_num = D0.cols();
+  if (max_salesmen <= 1) {
+    drone_indices.clear();
+    drone_indices.resize(1);
+    for (int i = 0; i < city_num; ++i) {
+      drone_indices[0].push_back(i);
+    }
+    ROS_WARN("[MDMTSP_GA] only one drone, no need to optimize");
+    return;
+  }
   int cost_type = 2;  // 1 MINSUM 2 MINMAX
   int pop_size = 60;
 
@@ -1855,6 +1864,10 @@ vector<int> HeterogenousPlannerManager::randperm(int n)
 
 std::vector<int> HeterogenousPlannerManager::randBreakIdx(int max_salesmen, int n)
 {
+    // 如果只有一个推销员或n无效，返回空列表
+    if (max_salesmen <= 1 || n <= 0) {
+      return std::vector<int>();
+    }
   int num_brks = max_salesmen - 1;
   std::vector<int> breaks(num_brks);
   std::random_device rd;
@@ -1880,6 +1893,13 @@ double HeterogenousPlannerManager::calculateTourLength(
 // Function to calculate the range of each salesman's route
 MatrixXi HeterogenousPlannerManager::calcRange(const vector<int>& p_brk, int n)
 {
+  if (p_brk.empty()) {
+    MatrixXi rng(1, 2);
+    rng(0, 0) = 0;
+    rng(0, 1) = n - 1;
+    return rng;
+  }
+
   MatrixXi rng(p_brk.size() + 1, 2);
   int flag = 1;
   for (int i = 0; i < (int)p_brk.size(); ++i) {
