@@ -99,7 +99,7 @@ sudo apt install libompl-dev
 __Project__:
 
 ```shell
-git clone https://github.com/SYSU-STAR/SOAR
+git clone https://github.com/Robotics-STAR-Lab/SOAR.git
 cd SOAR
 catkin_make
 ```
