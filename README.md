@@ -52,12 +52,12 @@
 
 The key modules of SOAR are detailed in this overview.
 <p align="center">
-  <img src="assets/videos/overview.gif" width = 90% height = 90%/>
+  <img src="assets/videos/overview.gif" width = 90% />
 </p>
 
 And we also provide a special demo for IROS2024.
 <p align="center">
-  <img src="assets/videos/iros_demo.gif" width = 90% height = 90%/>
+  <img src="assets/videos/iros_demo.gif" width = 90% />
 </p>
 
 If you find this work useful in your research, please consider citing:
@@ -120,7 +120,7 @@ source devel/setup.bash && roslaunch heterogeneous_manager pisa.launch
 ```
 
 <p align="center">
-  <img src="assets/videos/pisa.gif" width = 60% height = 60%/>
+  <img src="assets/videos/pisa.gif" width = 60% />
 </p>
 
 ### __Sydney Opera House__
@@ -130,7 +130,7 @@ source devel/setup.bash && roslaunch heterogeneous_manager sydney.launch
 ```
 
 <p align="center">
-  <img src="assets/videos/sydney.gif" width = 60% height = 60%/>
+  <img src="assets/videos/sydney.gif" width = 60% />
 </p>
 
 ### __NOTE__ 
