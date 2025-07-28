@@ -1,6 +1,6 @@
 <picture>
   <img
     alt="Star History"
-    src="https://api.star-history.com/svg?repos=SYSU-STAR/SOAR&type=Date"
+    src="https://api.star-history.com/svg?repos=Robotics-STAR-Lab/SOAR&type=Date"
   />
 </picture>
